@@ -2,7 +2,7 @@
 <html>
 <head>
 	<!-- This title is used for tabs and bookmarks -->
-	<title>Lab X - Subject/Topic</title>
+	<title>Lab 4 - Pseudocoding and Problem-Solving</title>
 
 	<!-- Use UTF character set, a good idea with any webpage -->
   	<meta charset="UTF-8" />
@@ -23,26 +23,99 @@
 	<!-- Style this page by changing the CSS in ../css/site.css or css/lab.css -->
 	<main id="content">
 		<section>
-			<h1>Lab X - Subject/Topic</h1>
+			<h1>Lab 4 - Pseudocoding and Problem-Solving</h1>
 			<div class="minor-section">
 					<h2>Challenge</h2>
-					<p>Restate the challenge of the lab here.</p>
+					<p> The challenge of this lab was to create a pseudocode of an everyday task and of a computer game. We has to do each in detail with sub sections.</p>
 			</div>
 
 			<div class="minor-section">
 					<h2>Problems</h2>
-					<p>What problems arose? How did you solve them? </p>
-			</div>
-
-			<div class="minor-section">
-					<h2>Reflection</h2>
-					<p>Put your reflections about this assignment here. How did it go? What kind of energy did you put into the assignment? </p>
+					<p>The main problem that was had was figuring out how detailed to make the pseudocode whithout actually just coding it. As someone who already knows how to code, I found it difficult to process the pseudocode as something different than regular code. </p>
 			</div>
 
 			<div class="minor-section">
 					<h2>Results</h2>
-					<div id="output"></div>
+					<div id="output">
+						<pre><code>
+// index.js - Checkers Game
+// A pseudocode implementation of the game
+// Author: Faith Smith
+// Date: 4/24/2023
+
+//Checkers: 
+
+	// Before the first turn, determine the starting turn between the player and the computer.
+		// User = player 1
+		// Computer = player 2
+		// Assign Y to whoever goes first
+		// Assign X to second mover
+
+	// Print the initial board.
+		// X = white
+		// Y = Black
+		// O = Empty 
+		// print 8 rows and 8 columns 
+		// loop throough each row 
+			// loop through each space
+				// print x, o alternatively in rows 1,2,3
+				// print o in rows 4, 5
+				// print y, o alternatively in rows 6,7,8
+				// print | in between cells
+			// print horizonatal line in between rows
+
+	// define move function
+		// Implement code to make move on board
+
+	// define valid move
+		// check board spaces to see if move is valid
+
+	// define computer Intelligence
+		// Check all possible moves
+		// analyze optimal paths to win
+
+	// define Kinging
+		// If the X or Y reaches the opposite side of the board, king the piece.
+			// X,Y = K
+			// K can move back and forth 
+
+	// Set up the game loop:
+		// Print board
+		// On the player’s turn: 
+			// Take user input that correlates to available moves on the board.
+			// Check if valid move
+				// if move valid update board
+				// if move not valid ask for new input
+			// If a computer piece is jumped over
+				// remove that piece from the board.
+				// Update board
+			// end player turn 
+
+		// On the computer’s turn:
+			// Gather data on all possible moves.
+			// If there’s an available checker to jump, move that piece over it.
+				// Remove that piece from the board.
+				// Update board
+			// Otherwise, randomly move a piece.
+				// Update board
+			// end computer turn
+
+	// The game ends when either side runs out of checkers or one cannot have any available moves.
+		// End Game Loop
+
+						</pre></code>
+
+					</div>
 			</div>
+
+			<div class="minor-section">
+				<h2>Screenshots</h2>
+				<img class="lab4pics" src="img/blt.png" width=500>
+				<p> A screenshot of the pseudocode of how to make a BLT.</p>
+				<img class="lab4pics" src="img/checkers-pseudocode.png" width=500>
+				<p>A screenshot of the beginning pseudocode of how to make a checkers game in Javascript.</p>
+			</div>
+
 		</section>
 		<nav id="links">
 			<!-- Put links to other pages (including the homepage) here. -->
