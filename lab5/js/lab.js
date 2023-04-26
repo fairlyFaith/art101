@@ -15,23 +15,24 @@ function myFunction(param1, param2) {
 function main() {
   console.log("Main function started.");
   // the code that makes everything happen
+  make = "Santa Cruz Metro";
+  model = "Public Bus";
+  color = "white";
+  year = 2018;
+  age = 2023 - year;
+
+  console.log ("Age " + age)
+
+  document.writeln("Make: " + make + "<br>");
+  document.writeln("Model: " + model + "<br>");
+  document.writeln("Color: " + color + "<br>");
+  document.writeln("Year: " + year + "<br>");
+  document.writeln("Age: " + age + " years<br>");
 }
 
 // let's get this party started
 main();
 
 
-make = "Santa Cruz Metro";
-model = "Public Bus";
-color = "white";
-year = 2018;
-age = 2023 - year;
 
-console.log ("Age " + age)
-
-document.writeln("Make: " + make + "<br>");
-document.writeln("Model: " + model + "<br>");
-document.writeln("Color: " + color + "<br>");
-document.writeln("Year: " + year + "<br>");
-document.writeln("Age: " + age + " years<br>");
 
