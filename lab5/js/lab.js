@@ -21,7 +21,7 @@ function main() {
   year = 2018;
   age = 2023 - year;
 
-  console.log ("Age " + age)
+  console.log ("Age " + age);
 
   document.writeln("Make: " + make + "<br>");
   document.writeln("Model: " + model + "<br>");
