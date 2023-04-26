@@ -1,6 +1,6 @@
-// index.js - purpose and description here
-// Author: Your Name
-// Date:
+// index.js - 
+// Author: Faith Smith
+// Date: 4/25/2023
 
 // Constants
 
@@ -19,3 +19,19 @@ function main() {
 
 // let's get this party started
 main();
+
+
+make = "Santa Cruz Metro";
+model = "Public Bus";
+color = "white";
+year = 2018;
+age = 2023 - year;
+
+console.log ("Age " + age)
+
+document.writeln("Make " + make + "<br>");
+document.writeln("Model " + model + "<br>");
+document.writeln("Color " + color + "<br>");
+document.writeln("Year " + year + "<br>");
+document.writeln("Age " + age + " years<br>");
+
