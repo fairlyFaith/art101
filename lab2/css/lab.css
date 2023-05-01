@@ -43,3 +43,10 @@ p {
 body {
   background-color: #204f64;
 }
+
+#links {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: solid 1px #05374e;
+  background-color: rgb(147, 190, 147)4;
+}
