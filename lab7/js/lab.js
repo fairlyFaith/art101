@@ -1,4 +1,4 @@
-// index.js - 
+// index.js - creating a function
 // Author: Faith Smith
 // Date: 5/3/2023
 
