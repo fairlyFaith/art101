@@ -11,7 +11,7 @@ function main() {
   console.log("Main function started.");
 
   //Function that multiples number by 10
-    function Times10(x){
+  function Times10(x){
     var Result = (x*10);
     return Result;
   }
