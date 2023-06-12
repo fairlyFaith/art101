@@ -172,6 +172,15 @@ Array.from(sidebarLinks).forEach(link => {
 
 
 
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see the error "The Geolocation service
+// failed.", it means you probably did not give permission for the browser to
+// locate you.
 let map, infoWindow;
 
 function initMap() {
