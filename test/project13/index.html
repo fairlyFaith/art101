@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+  
+    
+	<head>
+		<title>Points of Interest</title>
+
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="css/webpage.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia+Sans|Sofia+Sans+Extra+Condensed">
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="./javascript/webpage.js" DEFER></script>
+   
+   <style>
+      /* Update the button style to make it transparent */
+      button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          outline: none;
+      }
+  </style>
+ 
+
+	</head>
+
+	<body>
+    <div class="image-container">
+      <img src="pictures/projectmapv3.png" alt="Background Image" class="background-image" display="block">
+      <div class="content">
+      
+        <div id="map"></div>
+
+        <!-- 
+          The `defer` attribute causes the callback to execute after the full HTML
+          document has been parsed. For non-blocking uses, avoiding race conditions,
+          and consistent behavior across browsers, consider loading using Promises.
+          See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+          for more information.
+          -->
+        <script
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly"
+          defer
+        ></script>
+
+		    <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" id="closebtn">&times;</a>
+            <button class="dropdown-btn">ABOUT
+                <i class="fa fa-caret-down"></i>
+              </button>
+            <div class="dropdown-container">
+                <a href="#" >The Project</a>
+                <a href="#">The Authors</a>
+            </div>
+          <button class="dropdown-btn">STUDY SPOTS <img src="icons/openbookAsset 3.png" width="35px">
+                <i class="fa fa-caret-down"></i>
+              </button>
+            
+            <div class="dropdown-container">
+                <a href="#" class="sidebar-link" data-target="button1">Mchenry Library</a>
+                <a href="#" class="sidebar-link" data-target="button2">S & E Library</a>
+                <a href="#" class="sidebar-link" data-target="button3">Stevenson Library</a>
+                <a href="#" class="sidebar-link" data-target="button4">Porter Study Room</a>
+                <a href="#" class="sidebar-link" data-target="button5">Namaste Lounge</a>
+                <a href="#" class="sidebar-link" data-target="button6">Terry Freitas Commons</a>
+            </div>
+            <button class="dropdown-btn">ANIMAL SIGHTINGS<img src="icons/sammy2Asset 18.png" width="35px">
+                <i class="fa fa-caret-down"></i>
+              </button>
+            <div class="dropdown-container">
+                <a href="#" class="sidebar-link" data-target="button7">Banana Slugs</a>
+                <a href="#" class="sidebar-link" data-target="button8">Deer</a>
+                <a href="#" class="sidebar-link" data-target="button9">Koi Fish</a>
+                <a href="#" class="sidebar-link" data-target="button10">Turkeys</a>
+                <a href="#" class="sidebar-link" data-target="button11">Squirrels</a>
+            </div>
+            <button class="dropdown-btn">CAFES <img src="icons/hotcoffeeAsset 5.png" width="30px">
+                <i class="fa fa-caret-down"></i>
+              </button>
+            <div class="dropdown-container">
+              <a href="#" class="sidebar-link" data-target="button12a" data-target="button12b" data-target="button12c" data-target="button12d">Perk Coffee Bars</a>
+              <a href="#" class="sidebar-link" data-target="button13">Porter Market</a>
+              <a href="#" class="sidebar-link" data-target="button14">Merrill Market</a>
+              <a href="#" class="sidebar-link" data-target="button15">Cowell Coffee Shop</a>
+              <a href="#" class="sidebar-link" data-target="button16">Oakes Cafe</a>
+              <a href="#" class="sidebar-link" data-target="button17">Stevenson Coffee House</a>
+              <a href="#" class="sidebar-link" data-target="button18">Global Village Cafe</a>
+          </div>
+            <button class="dropdown-btn">PHOTO-OPS <img src="icons/cameraAsset 13.png" width="30px">
+                <i class="fa fa-caret-down"></i>
+              </button>
+            <div class="dropdown-container">
+                <a href="#" class="sidebar-link" data-target="button19">The Squiggle</a>
+                <a href="#" class="sidebar-link" data-target="button20">East Field</a>
+                <a href="#" class="sidebar-link" data-target="button21">Oakes Lower Lawn</a>
+                <a href="#" class="sidebar-link" data-target="button22">College 9 Murals</a>
+                <a href="#" class="sidebar-link" data-target="button23">Campus Entrance</a>
+            </div>
+            <button class="dropdown-btn">FIND YOUR STUDY SPOT
+            </button>
+          <div class="dropdown-container">
+            <div class="filter">
+              <p id="noise">Noise Level</p>
+                <input type="checkbox" id="lively">
+                  <label for="lively">Lively</label>
+                <input type="checkbox" id="moderate">
+                  <label for="moderate">Moderate</label>
+                <input type="checkbox" id="quiet">
+                  <label for="quiet">Quiet</label>
+              <p id="food">Food Nearby</p>
+                <input type="checkbox" id="yes">
+                  <label for="yes">Yes</label>
+                <input type="checkbox" id="no">
+                  <label for="no">No</label>
+              <p id="seating">Seating</p>
+                <input type="checkbox" id="inside">
+                  <label for="inside">Inside</label>
+                <input type="checkbox" id="outside">
+                  <label for="outside">Outside</label>
+                <input type="checkbox" id="both">
+                  <label for="both">Both</label>
+             <br>
+             <br>
+             
+              <button id="button" onclick="filter()">Submit</button>
+              <button id="button" onclick="reset()">   Reset</button>
+            
+            </div>
+          </div>
+
+          </div>
+
+          <div id="main">
+            <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
+          </div>
+
+        <head>
+          <style>
+            .overlay {
+              display: none;
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, 0.5);
+              z-index: 9999;
+            }
+
+            .popup {
+              display: none;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              width: 400px;
+              padding: 20px;
+              background-color: white;
+              border-radius: 5px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+              z-index: 10000;
+            }
+            
+          </style>
+        <html>
+          <div id="buttons">
+          <body>
+            <button class="popupButton" data-target="slug1"><img src="icons/sammy2Asset 18.png" 
+              width="75px" id="button7" class="hidden-button"
+            ></button>
+            <div class="overlay"></div>
+            <div class="popup" id="slug1">
+              <h2>Banana Slug</h2>
+              <p>You'll find Sammys everywhere, but this spot is always a good place to spot one after it rains!</p>
+              <img src="pictures/slug.jpeg" width="200px">
+              <br>
+              <a href="https://earth.google.com/web/search/Oakes+College,+Oakes+Road,+Santa+Cruz,+CA/@36.9894756,-122.0628583,185.129443a,823.54801931d,35y,0h,45t,0r/data=CpQBGmoSZAolMHg4MDhlNDE5OWI4ODdmZTZiOjB4NjA0YjI2MTI4YTYwNTUyMxlRGO8ip35CQCEOstHeBYRewCopT2FrZXMgQ29sbGVnZSwgT2FrZXMgUm9hZCwgU2FudGEgQ3J1eiwgQ0EYAiABIiYKJAkBqlyOh4BCQBGU8QEzwn5CQBlFr2uRZ4NewCFHyOnrYIRewCgC" target="_blank">Google Earth</a>
+              <br>
+              <br>
+              <button class="closeButton">Back</button>
+            </div>
+          </body>
+
+          <body>
+            <div style= "position: absolute; top: 275%; left: 75%;">
+            <button class="popupButton" data-target="deer1"><img src="icons/deerAsset 17.png"
+            width="60px"
+            height="70px"
+            id="button8" class="hidden-button"
+            ></button>
+            <div class="overlay"></div>
+            <div class="popup" id="deer1">
+              <h2>Deer</h2>
+              <p>Deers love our campus! You'll be sure to find a family of deer here during your days on campus. </p>
+              <img src="pictures/deerporter.jpg" width="200px">
+              <br>
+              <a href="https://earth.google.com/web/search/Porter+College,+High+Street,+Santa+Cruz,+CA/@36.9943377,-122.0652388,219.1661936a,823.49020812d,35y,0h,45t,0r/data=CpYBGmwSZgolMHg4MDhlNDE5ZWVkMDZhNzlkOjB4NWY4MTcwNjAwZWJmMWJlORkFVy91Rn9CQCGJG1zfLIRewCorUG9ydGVyIENvbGxlZ2UsIEhpZ2ggU3RyZWV0LCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCVA_1lTDgEJAETWygOhkfkJAGb4dyYZ3g17AISaElI3GhF7AKAI" target="_blank">Google Earth</a>
+              <br>
+              <br>
+              <button class="closeButton">Back</button>
+            </div>
+          </body>
+
+          <body>
+            <div style= "position:absolute; top: 10%; left: 60%;">
+                     <button class="popupButton" data-target="squirrel"><img src="icons/squirrelAsset 19.png"
+                       width="60px"
+                       height="70px"
+                       id="button11" class="hidden-button"
+                     ></button>
+            </div>
+                     <div class="overlay"></div>
+                     <div class="popup" id="squirrel">
+                       <h2>Squirrels</h2>
+                       <p>Squirrels are absolutely everywhere! You'll see at least 5 on your walk to class.</p>
+                       <img src="pictures/squirellaying.jpeg" width="300px">
+                       <br>
+                       <a href="https://earth.google.com/web/search/College+10/@37.0006634,-122.0585269,261.40156236a,823.41498573d,35y,0h,45t,0r/data=CnUaSxJFCiUweDgwOGU0MTBhZmVmYjU3Yzk6MHhmYmNiOGM0NjdjOGVhY2Q3Ge-mAL0VgEJAIetbnOe-g17AKgpDb2xsZWdlIDEwGAIgASImCiQJPvm_axiBQkAREjXBXqV-QkAZHjgse3GDXsAhs9RG7peEXsAoAg" target="_blank">Google Earth</a>
+                       <br>
+                       <br>
+                       <button class="closeButton">Back</button>
+                     </div>
+            </body>
+           
+            <body>
+              <div style= >
+                       <button id= "porter-study" class="popupButton" data-target="porter"><img src="icons/closedbookAsset 1.png"
+                         width="60px"
+                         height="70px"
+                         id="button4" class="hidden-button"
+                       ></button>
+              </div>
+                       <div class="overlay"></div>
+                       <div class="popup" id="porter">
+                        <h2>Porter Study Room</h2>
+                         <p>This study room has couches, tables, and plenty of outlets. It also has a view of the Porter Squiggle and is an awesome people watching spot.</p>
+                         <img src="pictures/porterstudyroom.jpg" width="300px">
+                         <br>
+                         <a href="https://earth.google.com/web/search/Porter+College,+High+Street,+Santa+Cruz,+CA/@36.9943377,-122.0652388,219.1661936a,823.49020812d,35y,0h,45t,0r/data=CpYBGmwSZgolMHg4MDhlNDE5ZWVkMDZhNzlkOjB4NWY4MTcwNjAwZWJmMWJlORkFVy91Rn9CQCGJG1zfLIRewCorUG9ydGVyIENvbGxlZ2UsIEhpZ2ggU3RyZWV0LCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCVA_1lTDgEJAETWygOhkfkJAGb4dyYZ3g17AISaElI3GhF7AKAI" target="_blank">Google Earth</a>
+                         <br>
+                         <br>
+                         <button class="closeButton">Back</button>
+                       </div>
+                     </body>
+         <body>
+              <div style= >
+                       <button id="se-library" class="popupButton" data-target="se"><img src="icons/laptopAsset 2.png"
+                         width="60px"
+                         height="70px"
+                         id="button2" class="hidden-button"
+                       ></button>
+                       <div class="overlay"></div>
+                       <div class="popup" id="se">
+                         <h2>Science and Engineering Library</h2>
+                         <p>This library has 3 floors, and is perfect to work on group projects. It has beautiful views of trees and is a great place to pretend to be a STEM  major.</p>
+                         <img src="pictures/addpichere.jpg" width="300px">
+                         <br>
+                         <a href="https://earth.google.com/web/search/Science+Hill+-+Classroom+Unit+Bridge,+Santa+Cruz,+CA/@36.9979389,-122.0582986,232.36678503a,823.44738548d,35y,0h,45t,0r/data=Cp8BGnUSbwolMHg4MDhlNDFhMDU4YzJmNTQxOjB4ZTg3NDZmNjhkMGFhNzI0YRn_cz12vH9CQCHEGQ0qu4NewCo0U2NpZW5jZSBIaWxsIC0gQ2xhc3Nyb29tIFVuaXQgQnJpZGdlLCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCUAPvv2wgEJAERxH1FtNfkJAGa-ZbHfggl7AIbvCEUDtg17AKAI" target="_blank">Google Earth</a>
+                         <br>
+                         <br>
+                         <button class="closeButton">Back</button>
+                       </div>
+                     </body>
+         <body>
+                       <button id="stevenson-library" class="popupButton" data-target="stevensonlib"><img src="icons/laptopAsset 2.png"
+                         width="60px"
+                         height="70px"
+                         id="button3" class="hidden-button"
+                       ></button>
+                       <div class="overlay"></div>
+                       <div class="popup" id="stevensonlib">
+                         <h2>Stevenson Library</h2>
+                         <p>This library is ideal for extremely quiet studying. It's especially nice to be in when it’s raining.</p>
+                         <img src="pictures/stevensonlib.jpg" width="300px">
+                         <br>
+                         <a href="https://earth.google.com/web/search/Stevenson+College,+High+St,+Santa+Cruz,+CA/@36.9970226,-122.0519051,216.38225659a,823.4582817d,35y,0h,45t,0r/data=CpUBGmsSZQolMHg4MDhlNDFhNjcwY2NjYzVmOjB4MzJhZWQyNTVhOGE4MzYyMhm7L8Jvnn9CQCG4v8RpUoNewCoqU3RldmVuc29uIENvbGxlZ2UsIEhpZ2ggU3QsIFNhbnRhIENydXosIENBGAIgASImCiQJMb0mzEaBQkARhEvHjAB_QkAZFME8_HWCXsAhCfzMYM6DXsAoAg" target="_blank">Google Earth</a>
+                         <br>
+                         <br>
+                         <button class="closeButton">Back</button>
+                       </div>
+                     </body>
+         <body>
+                       <button id="namaste-lounge" class="popupButton" data-target="namaste"><img src="icons/closedbookAsset 1.png"
+                         width="60px"
+                         height="70px"
+                         id="button5" class="hidden-button"
+                       ></button>
+                       <div class="overlay"></div>
+                       <div class="popup" id="namaste">
+                         <h2>Namaste Lounge</h2>
+                         <p>This study room has floor to ceiling windows with couches, tables, and a piano for you to practice on.</p>
+                         <img src="pictures/namaste.jpg" width="300px">
+                         <br>
+                         <a href="https://earth.google.com/web/search/College+9/@37.0015833,-122.0572618,249.14017047a,823.40404587d,35y,0h,45t,0r/data=CnQaShJECiUweDgwOGU0MTBhNWFlZjk5ODM6MHhhYTMzMTYzOTQwNWM0MjQ0GSHcruEzgEJAIdiTZS2qg17AKglDb2xsZWdlIDkYAiABIiYKJAnx8GTwBoFCQBFidGVOiX5CQBnU0e1rS4NewCHabrvbX4RewCgC" target="_blank">Google Earth</a>
+                         <br>
+                         <br>
+                         <button class="closeButton">Back</button>
+                       </div>
+                     </body>
+         <body>
+                       <button id="tf-commons" class="popupButton" data-target="tfc"><img src="icons/closedbookAsset 1.png"
+                         width="60px"
+                         height="70px"
+                         id="button6" class="hidden-button"
+                       ></button>
+                       <div class="overlay"></div>
+                       <div class="popup" id="tfc">
+                         <h2>Terry Freitas Commons</h2>
+                         <p>This lounge has a pool table, piano, couches, tables, practically everything you could want. It doubles as a food pantry, so there’s always free snacks, hygiene products, and non-perishables available!</p>
+                         <img src="pictures/terryfritas.jpg" width="300px">
+                         <br>
+                         <a href="https://earth.google.com/web/search/College+10/@37.0006634,-122.0585269,261.40156236a,823.41498573d,35y,0h,45t,0r/data=CnUaSxJFCiUweDgwOGU0MTBhZmVmYjU3Yzk6MHhmYmNiOGM0NjdjOGVhY2Q3Ge-mAL0VgEJAIetbnOe-g17AKgpDb2xsZWdlIDEwGAIgASImCiQJPvm_axiBQkAREjXBXqV-QkAZHjgse3GDXsAhs9RG7peEXsAoAg" target="_blank">Google Earth</a>
+                         <br>
+                         <br>
+                         <button class="closeButton">Back</button>
+                       </div>
+                     </body>
+             <body>
+                       <button id="mchenry-library" class="popupButton" data-target="mchenry"><img src="icons/laptopAsset 2.png"
+                         width="60px"
+                         height="70px"
+                         id="button1" class="hidden-button"
+                       ></button>
+                       <div class="overlay"></div>
+                       <div class="popup" id="mchenry">
+                         <h2>Mchenry Library</h2>
+                         <p>With 5 floors, this is UCSC's biggest library! With a cafe inside, tons of different places to study, and gorgeous views, you’ll be sure to find your new favorite study spot here. Floors 0, 1, and 4 are the most quiet, and levels 2 & 3 are the most lively.</p>
+                         <img src="pictures/McHenry_Library_UCSC.jpg" width="300px">
+                         <br>
+                         <a href="https://earth.google.com/web/search/Mc+Henry+Santa+cruz/@36.9948069,-122.0600909,219.32202773a,823.48462895d,35y,0h,45t,0r/data=Cn0aUxJNCiUweDgwOGU0MTk4YTQ2M2RmNjc6MHgzYWU1Nzc0ZWY1YTk4Y2Q5GeaqHtVVf0JAIWGSgIfYg17AKhJNY2hlbnJ5IFNhbnRhIGNydXoYAiABIiYKJAk1ZUAwgNw0QBE1ZUAwgNw0wBl45zH76atCQCF38CDy0FVQwCgC" target="_blank">Google Earth</a>
+                         <br>
+                         <br>
+                         <button class="closeButton">Back</button>
+                       </div>
+                     </body>
+              <body>
+             
+      
+             
+              <body>
+                <div style= "position:absolute; top: 80%; left: 100%;">
+                  <button class="popupButton" data-target="perk1"><img src="icons/icedcoffeeAsset 4.png"
+                    width="50px"
+                    height="80px"
+                    id="button12a" class="hidden-button"
+                  ></button>
+                  <div class="overlay"></div>
+                  <div class="popup" id="perk1">
+                    <h2>Perk Coffee Bars</h2>
+                    <p>There are 4 Perk coffee bars! Baskin Engineering, Physical Sciences, Earth and Marine Sciences, and the 9/10 dining hall all have one of these coffee bars. These cafés are super convenient to grab a quick snack and a drink on the go. They all have baked goods, bottled drinks, and plenty of hot and cold drinks to enjoy.</p>
+                    <img src="pictures/perkeng.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Science+Hill+-+Classroom+Unit+Bridge,+Santa+Cruz,+CA/@36.9979389,-122.0582986,232.36678503a,823.44738548d,35y,0h,45t,0r/data=Cp8BGnUSbwolMHg4MDhlNDFhMDU4YzJmNTQxOjB4ZTg3NDZmNjhkMGFhNzI0YRn_cz12vH9CQCHEGQ0qu4NewCo0U2NpZW5jZSBIaWxsIC0gQ2xhc3Nyb29tIFVuaXQgQnJpZGdlLCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCUAPvv2wgEJAERxH1FtNfkJAGa-ZbHfggl7AIbvCEUDtg17AKAI" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+                
+                <body>
+                  <div style= "position:absolute; top: 60%; left: 80%;">
+                  <button class="popupButton" data-target="perk2"><img src="icons/icedcoffeeAsset 4.png"
+                    width="50px"
+                    height="80px"
+                    id="button12b" class="hidden-button"
+                  ></button>
+                  <div class="overlay"></div>
+                  <div class="popup" id="perk2">
+                    <h2>Perk Coffee Bars</h2>
+                    <p>There are 4 Perk coffee bars! Baskin Engineering, Physical Sciences, Earth and Marine Sciences, and the 9/10 dining hall all have one of these coffee bars. These cafés are super convenient to grab a quick snack and a drink on the go. They all have baked goods, bottled drinks, and plenty of hot and cold drinks to enjoy.</p>
+                    <img src="pictures/perkeng.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Science+Hill+-+Classroom+Unit+Bridge,+Santa+Cruz,+CA/@36.9979389,-122.0582986,232.36678503a,823.44738548d,35y,0h,45t,0r/data=Cp8BGnUSbwolMHg4MDhlNDFhMDU4YzJmNTQxOjB4ZTg3NDZmNjhkMGFhNzI0YRn_cz12vH9CQCHEGQ0qu4NewCo0U2NpZW5jZSBIaWxsIC0gQ2xhc3Nyb29tIFVuaXQgQnJpZGdlLCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCUAPvv2wgEJAERxH1FtNfkJAGa-ZbHfggl7AIbvCEUDtg17AKAI" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+                
+                <body>
+                  <button class="popupButton" data-target="perk"><img src="icons/icedcoffeeAsset 4.png"
+                    width="50px"
+                    height="80px"
+                    id="button12c" class="hidden-button"
+                  ></button>
+                  <div class="overlay"></div>
+                  <div class="popup" id="perk">
+                    <h2>Perk Coffee Bars</h2>
+                    <p>There are 4 Perk coffee bars! Baskin Engineering, Physical Sciences, Earth and Marine Sciences, and the 9/10 dining hall all have one of these coffee bars. These cafés are super convenient to grab a quick snack and a drink on the go. They all have baked goods, bottled drinks, and plenty of hot and cold drinks to enjoy.</p>
+                    <img src="pictures/perkeng.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Science+Hill+-+Classroom+Unit+Bridge,+Santa+Cruz,+CA/@36.9979389,-122.0582986,232.36678503a,823.44738548d,35y,0h,45t,0r/data=Cp8BGnUSbwolMHg4MDhlNDFhMDU4YzJmNTQxOjB4ZTg3NDZmNjhkMGFhNzI0YRn_cz12vH9CQCHEGQ0qu4NewCo0U2NpZW5jZSBIaWxsIC0gQ2xhc3Nyb29tIFVuaXQgQnJpZGdlLCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCUAPvv2wgEJAERxH1FtNfkJAGa-ZbHfggl7AIbvCEUDtg17AKAI" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+                <body>
+                  <button class="popupButton" data-target="perk"><img src="icons/icedcoffeeAsset 4.png"
+                    width="50px"
+                    height="80px"
+                    id="button12d" class="hidden-button"
+                  ></button>
+                  <div class="overlay"></div>
+                  <div class="popup" id="perk">
+                    <h2>Perk Coffee Bars</h2>
+                    <p>There are 4 Perk coffee bars! Baskin Engineering, Physical Sciences, Earth and Marine Sciences, and the 9/10 dining hall all have one of these coffee bars. These cafés are super convenient to grab a quick snack and a drink on the go. They all have baked goods, bottled drinks, and plenty of hot and cold drinks to enjoy.</p>
+                    <img src="pictures/perkeng.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Science+Hill+-+Classroom+Unit+Bridge,+Santa+Cruz,+CA/@36.9979389,-122.0582986,232.36678503a,823.44738548d,35y,0h,45t,0r/data=Cp8BGnUSbwolMHg4MDhlNDFhMDU4YzJmNTQxOjB4ZTg3NDZmNjhkMGFhNzI0YRn_cz12vH9CQCHEGQ0qu4NewCo0U2NpZW5jZSBIaWxsIC0gQ2xhc3Nyb29tIFVuaXQgQnJpZGdlLCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCUAPvv2wgEJAERxH1FtNfkJAGa-ZbHfggl7AIbvCEUDtg17AKAI" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+
+
+
+
+                <body>
+                  <div style= "position:absolute; top: -100%; left: -25%;">
+                  <button class="popupButton" data-target="portermarket"><img src="icons/bagAsset 8.png"
+                    width="50px"
+                    height="70px"
+                    id="button13" class="hidden-button"
+                  ></button>
+                  <div class="overlay"></div>
+                  <div class="popup" id="portermarket">
+                    <h2>Porter Market</h2>
+                    <p>Porter Market has lots of fresh, frozen, and dried foods for you to shop for. There’s also hygiene products, snacks, and a café here! This mini grocery store takes Slug Points, Flexi$, and card.</p>
+                    <img src="pictures/portermarket.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Porter+College,+High+Street,+Santa+Cruz,+CA/@36.9943377,-122.0652388,219.1661936a,823.49020812d,35y,0h,45t,0r/data=CpYBGmwSZgolMHg4MDhlNDE5ZWVkMDZhNzlkOjB4NWY4MTcwNjAwZWJmMWJlORkFVy91Rn9CQCGJG1zfLIRewCorUG9ydGVyIENvbGxlZ2UsIEhpZ2ggU3RyZWV0LCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCVA_1lTDgEJAETWygOhkfkJAGb4dyYZ3g17AISaElI3GhF7AKAI" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+                
+                <body>
+                  <div style= "position:absolute; top: -100%; left: -25%;">
+                  <button class="popupButton" data-target="merrillmarket"><img src="icons/bagAsset 8.png"
+                    width="50px"
+                    height="70px"
+                    id="button14" class="hidden-button"
+                  ></button>
+                  <div class="overlay"></div>
+                  <div class="popup" id="merrillmarket">
+                    <h2>Merrill Market</h2>
+                    <p>Merrill Market is newly opened, and is a grocery store and café wrapped into one. They have food, drinks, hygiene, and cleaning products here! This mini grocery store takes Slug Points, Flexi$, and card.</p>
+                    <img src="pictures/merrillmarket.jpg" width="300px">
+                    <br>
+                    <a href="addmerrillhere" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="cowellcoffeeshop"><img src="icons/hotcoffeeAsset 5.png"
+                    width="60px"
+                    height="60px"
+                    id="button15" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="cowellcoffeeshop">
+                    <h2>Cowell Coffee Shop</h2>
+                    <p>Cowell Coffee Shop is one of free dining options on campus offered to students. It’s goal is to fight food insecurity. They serve juice, teas, coffee and an assortment of premade food options all available to students for free. </p>
+                    <img src="pictures/CowellCoffee_10-scaled.webp" width="300px">
+                    <br>
+                    <a href="addcrowncoffeshophere" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="globalvillagecafe"><img src="icons/hotcoffeeAsset 5.png"
+                    width="60px"
+                    height="60px"
+                    id="button18" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="globalvillagecafe">
+                    <h2>Global Village Café</h2>
+                    <p>The Global Village Café is nestled in the second floor (or by the main entrance) of McHenry Library, and has the best avocado toast around! Make sure to get here early, though, as the line is always long after 12pm. </p>
+                    <img src="pictures/globalvillage.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Mc+Henry+Santa+cruz/@36.9948069,-122.0600909,219.32202773a,823.48462895d,35y,0h,45t,0r/data=Cn0aUxJNCiUweDgwOGU0MTk4YTQ2M2RmNjc6MHgzYWU1Nzc0ZWY1YTk4Y2Q5GeaqHtVVf0JAIWGSgIfYg17AKhJNY2hlbnJ5IFNhbnRhIGNydXoYAiABIiYKJAk1ZUAwgNw0QBE1ZUAwgNw0wBl45zH76atCQCF38CDy0FVQwCgC" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="oakescaf"><img src="icons/burgerAsset 6.png"
+                    width="60px"
+                    height="50px"
+                    id="button16" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="oakescaf">
+                    <h2>Oakes Café</h2>
+                    <p>Oakes Café is a student favorite on campus. They offer fresh, hot, restaurant-style food like burgers, rice bowls, and chicken tenders here! </p>
+                    <img src="pictures/oakescafe.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Oakes+College,+Oakes+Road,+Santa+Cruz,+CA/@36.9894756,-122.0628583,185.129443a,823.54801931d,35y,0h,45t,0r/data=CpQBGmoSZAolMHg4MDhlNDE5OWI4ODdmZTZiOjB4NjA0YjI2MTI4YTYwNTUyMxlRGO8ip35CQCEOstHeBYRewCopT2FrZXMgQ29sbGVnZSwgT2FrZXMgUm9hZCwgU2FudGEgQ3J1eiwgQ0EYAiABIiYKJAkBqlyOh4BCQBGU8QEzwn5CQBlFr2uRZ4NewCFHyOnrYIRewCgC" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+              
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="stevensoncof"><img src="icons/sandwichAsset 7.png"
+                    width="80px"
+                    height="60px"
+                    id="button17" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="stevensoncof">
+                    <h2>Stevenson Coffee House</h2>
+                    <p>Stevenson Coffee House is a homey café with sandwiches, smoothies, baked goods, and more! The music is always good here, and is a great place to catch up with friends. </p>
+                    <img src="pictures/stevenson-coffee-house.jpeg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Stevenson+College,+High+St,+Santa+Cruz,+CA/@36.9970226,-122.0519051,216.38225659a,823.4582817d,35y,0h,45t,0r/data=CpUBGmsSZQolMHg4MDhlNDFhNjcwY2NjYzVmOjB4MzJhZWQyNTVhOGE4MzYyMhm7L8Jvnn9CQCG4v8RpUoNewCoqU3RldmVuc29uIENvbGxlZ2UsIEhpZ2ggU3QsIFNhbnRhIENydXosIENBGAIgASImCiQJMb0mzEaBQkARhEvHjAB_QkAZFME8_HWCXsAhCfzMYM6DXsAoAg" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+                
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="squiggle"><img src="icons/squiggleAsset 9.png"
+                    width="130px"
+                    height="60px"
+                    id="button19" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="squiggle">
+                    <h2>Porter Squiggle </h2>
+                    <p>This is one of UCSC’s most iconic landmarks. Students love to lounge on the squiggle, just be careful getting up & down. </p>
+                    <img src="pictures/sqig.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Porter+College,+High+Street,+Santa+Cruz,+CA/@36.9943377,-122.0652388,219.1661936a,823.49020812d,35y,0h,45t,0r/data=CpYBGmwSZgolMHg4MDhlNDE5ZWVkMDZhNzlkOjB4NWY4MTcwNjAwZWJmMWJlORkFVy91Rn9CQCGJG1zfLIRewCorUG9ydGVyIENvbGxlZ2UsIEhpZ2ggU3RyZWV0LCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCVA_1lTDgEJAETWygOhkfkJAGb4dyYZ3g17AISaElI3GhF7AKAI" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="eastfield"><img src="icons/sunsetAsset 14.png"
+                    width="80px"
+                    height="70px"
+                    id="button20" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="eastfield">
+                    <h2>East Field</h2>
+                    <p>The East Field has some of the best views on campus! Come snap a picture playing volleyball or doing a cartwheel with the sunset in the background!</p>
+                    <img src="pictures/eastfield.jpg" width="300px">
+                    <br>
+                    <a href="addgoogleearth" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="oakeslawn"><img src="icons/oceanAsset 10.png"
+                    width="90px"
+                    height="60px"
+                    id="button21" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="oakeslawn">
+                    <h2>Oakes Lower Lawn</h2>
+                    <p>The Oakes lower lawn is one of the best spots to get an ocean view on campus! Picnics down here are unmatched.</p>
+                    <img src="pictures/oakeslawn.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/Oakes+College,+Oakes+Road,+Santa+Cruz,+CA/@36.9894756,-122.0628583,185.129443a,823.54801931d,35y,0h,45t,0r/data=CpQBGmoSZAolMHg4MDhlNDE5OWI4ODdmZTZiOjB4NjA0YjI2MTI4YTYwNTUyMxlRGO8ip35CQCEOstHeBYRewCopT2FrZXMgQ29sbGVnZSwgT2FrZXMgUm9hZCwgU2FudGEgQ3J1eiwgQ0EYAiABIiYKJAkBqlyOh4BCQBGU8QEzwn5CQBlFr2uRZ4NewCFHyOnrYIRewCgC" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="murals"><img src="icons/spraycanAsset 12.png"
+                    width="60px"
+                    height="70px"
+                    id="button22" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="murals">
+                    <h2>College 9 Murals</h2>
+                    <p>The college’s theme, International and Global Perspectives, is reflected in these gorgeous murals that you can find all up College 9 Rd.</p>
+                    <img src="pictures/murals.jpg" width="300px">
+                    <br>
+                    <a href="https://earth.google.com/web/search/College+9/@37.0015833,-122.0572618,249.14017047a,823.40404587d,35y,0h,45t,0r/data=CnQaShJECiUweDgwOGU0MTBhNWFlZjk5ODM6MHhhYTMzMTYzOTQwNWM0MjQ0GSHcruEzgEJAIdiTZS2qg17AKglDb2xsZWdlIDkYAiABIiYKJAnx8GTwBoFCQBFidGVOiX5CQBnU0e1rS4NewCHabrvbX4RewCgC" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="entrance"><img src="icons/signAsset 11.png"
+                    width="120px"
+                    height="50px"
+                    id="button23" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="entrance">
+                    <h2>Campus Main Entrance</h2>
+                    <p>At the base of campus, you’ll find our iconic entrance sign. Pretty much every student takes their grad pictures here, and it’s guaranteed you’ll get a great shot here!</p>
+                    <img src="pictures/ucscsign.jpg" width="300px">
+                    <br>
+                    <a href="addplace" target="_blank">Google Earth</a>
+                    <br>
+                    <br>
+                    <button class="closeButton">Back</button>
+                  </div>
+                </body>
+          
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="turkey"><img src="icons/turkeyAsset 20.png"
+                      width="60px"
+                      height="70px"
+                      id="button10" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="turkey">
+                      <h2>Turkeys</h2>
+                      <p>Turkeys are common all year round here! Don’t get too close or they  might gobble at you!</p>
+                      <img src="pictures/turkeyoakes.jpg" width="300px">
+                      <br>
+                    
+                    <a href="https://earth.google.com/web/search/Oakes+College,+Oakes+Road,+Santa+Cruz,+CA/@36.9894756,-122.0628583,185.129443a,823.54801931d,35y,0h,45t,0r/data=CpQBGmoSZAolMHg4MDhlNDE5OWI4ODdmZTZiOjB4NjA0YjI2MTI4YTYwNTUyMxlRGO8ip35CQCEOstHeBYRewCopT2FrZXMgQ29sbGVnZSwgT2FrZXMgUm9hZCwgU2FudGEgQ3J1eiwgQ0EYAiABIiYKJAkBqlyOh4BCQBGU8QEzwn5CQBlFr2uRZ4NewCFHyOnrYIRewCgC" target="_blank">Google Earth</a>
+                      <br>
+                      <br>
+                      <button class="closeButton">Back</button>
+                    </div>
+                </body>
+    
+
+                <body>
+                  <div style= "position:absolute; top: 10%; left: 10%;">
+                  <button class="popupButton" data-target="koi"><img src="icons/koiAsset 15.png"
+                      width="60px"
+                      height="80px"
+                      id="button9" class="hidden-button"
+                  ></button>
+                  </div>
+                  <div class="overlay"></div>
+                  <div class="popup" id="koi">
+                      <h2>Koi Fish</h2>
+                      <p>Koi Fish can be found outside the Porter Study Room, or down the Pogonip hill. These fish love visitors, but don’t feed them!</p>
+                      <img src="pictures/koi.jpg" width="300px">
+                      <br>
+                      <a href="https://earth.google.com/web/search/Porter+College,+High+Street,+Santa+Cruz,+CA/@36.9943377,-122.0652388,219.1661936a,823.49020812d,35y,0h,45t,0r/data=CpYBGmwSZgolMHg4MDhlNDE5ZWVkMDZhNzlkOjB4NWY4MTcwNjAwZWJmMWJlORkFVy91Rn9CQCGJG1zfLIRewCorUG9ydGVyIENvbGxlZ2UsIEhpZ2ggU3RyZWV0LCBTYW50YSBDcnV6LCBDQRgCIAEiJgokCVA_1lTDgEJAETWygOhkfkJAGb4dyYZ3g17AISaElI3GhF7AKAI" target="_blank">Google Earth</a>
+                      <br>
+                      <br>
+                      <button class="closeButton">Back</button>
+                  </div>
+                </body>
+              </div>
+      </div>
+    </div>
+  </body>
+
+
+</html>
+
